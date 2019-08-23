@@ -174,9 +174,7 @@ class GithubIssues extends React.Component {
 
     // Handles interaction with header filter buttons
     handleFilterChange(toFilter) {
-        console.log(Object.keys(toFilter))
         let newObj = { ...this.state.listFilter, ...toFilter }
-        console.log(newObj)
         this.setState(changeFilter(newObj), () => {
             Object.keys(toFilter)[0] === "state" && this.getIssues()
         })
@@ -268,7 +266,7 @@ class GithubIssues extends React.Component {
 
             <div className="container">
                 <nav className="panel">
-                    <FixedHeaderComponent listFilter={this.state.listFilter} onFilterChange={this.handleFilterChange} user={this.props.repo} repo={this.props.repo} since={this.state.since} />
+                    <FixedHeaderComponent listFilter={this.state.listFilter} onFilterChange={this.handleFilterChange} user={this.props.user} repo={this.props.repo} since={this.state.since} />
                     {this.state.loading ?
                         this.renderLoading()
                         : this.renderIssues()}
