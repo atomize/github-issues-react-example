@@ -2,7 +2,6 @@
   "name": "github-issues-react-example",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://atomize.github.io/github-issues-react-example/",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.21",
     "@fortawesome/free-solid-svg-icons": "^5.10.1",

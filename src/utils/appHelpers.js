@@ -20,39 +20,6 @@ export const invertColor = (hex, bw) => {
 
 }
 
-export const getTimeAgoString = (timestamp) => {
-    const SECOND = 1000,
-        MINUTE = SECOND * 60,
-        HOUR = MINUTE * 60,
-        DAY = HOUR * 24,
-        MONTH = DAY * 30,
-        YEAR = DAY * 365;
-
-    const elapsed = Date.now() - timestamp,
-        getElapsedString = (value, unit) => {
-            const round = Math.round(elapsed / value);
-            return `${round} ${unit}${round > 1
-                ? 's'
-                : ''} ago`;
-        };
-    if (elapsed < MINUTE) {
-        return getElapsedString(SECOND, 'second');
-    }
-    if (elapsed < HOUR) {
-        return getElapsedString(MINUTE, 'minute');
-    }
-    if (elapsed < DAY) {
-        return getElapsedString(HOUR, 'hour');
-    }
-    if (elapsed < MONTH) {
-        return getElapsedString(DAY, 'day');
-    }
-    if (elapsed < YEAR) {
-        return getElapsedString(MONTH, 'month');
-    }
-    return getElapsedString(YEAR, 'year');
-}
-
 export const encodeQueryString = (params) => {
     const keys = Object.keys(params)
     return keys.length
@@ -92,14 +59,5 @@ export function parseLinkHeader(header) {
         return links;
     }, {});
 }
-export function promiseMap(xs, f) {
-    const reducer = (ysAcc$, x) =>
-      ysAcc$.then(ysAcc =>
-        f(x).then(y => {
-          ysAcc[x] = y;
-          return ysAcc;
-        })
-      );
-    return xs.reduce(reducer, Promise.resolve({}));
-  }
+
   
