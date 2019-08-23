@@ -2,6 +2,7 @@
   "name": "github-issues-react-example",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://code.berti.dev/react-example",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.21",
     "@fortawesome/free-solid-svg-icons": "^5.10.1",
@@ -32,5 +33,7 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+    
+
   }
 }

@@ -4,7 +4,7 @@ function App() {
   return (
     <>
     <div className="App">   
-      <GithubIssues  user="angular" repo="angular" />
+      <GithubIssues  user="facebook" repo="react" />
     </div>
   </>
   );
