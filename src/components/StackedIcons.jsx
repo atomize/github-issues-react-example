@@ -6,19 +6,17 @@ import {
     faCodeBranch,
     faCircle
 } from '@fortawesome/free-solid-svg-icons'
+
 const IssueIconStack = ({ state }) => {
     return (
         <span className="fa-layers fa-fw fa-2x">
-
             <FontAwesomeIcon icon={faCircle} color={state} />
-
             <FontAwesomeIcon
                 className="fa-inverse"
                 icon={faExclamationCircle}
                 color={state}
                 transform="shrink-2"
             />
-
             {
                 state === "red" &&
                 <FontAwesomeIcon
@@ -27,7 +25,6 @@ const IssueIconStack = ({ state }) => {
                     transform="shrink-10 right-5 up-4"
                 />
             }
-
         </span>
     )
 }
@@ -35,13 +32,11 @@ const IssueIconStack = ({ state }) => {
 const PrIconStack = ({ state }) => {
     return (
         <span className="fa-layers fa-fw fa-2x">
-
             <FontAwesomeIcon
                 icon={faCodeBranch}
                 color={state}
                 transform="shrink-4"
             />
-
             {
                 state === "red" ?
                     <FontAwesomeIcon
@@ -51,7 +46,6 @@ const PrIconStack = ({ state }) => {
                     />
                     : ""
             }
-
         </span>
     )
 }
@@ -62,4 +56,5 @@ const StackedIcons = ({ type, state }) => {
         : <PrIconStack state={iconColor} type={type} />
     return (jsx)
 }
+
 export default StackedIcons;
