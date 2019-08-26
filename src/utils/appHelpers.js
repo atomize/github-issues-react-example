@@ -1,5 +1,7 @@
+// create a Showdown instance to parse issue/pr body content
 const showdown = require('showdown')
 
+// Showdown parameters to jive well with Github flavored markdown
 export const converter = new showdown.Converter({
     tables: true,
     strikethrough: true,
@@ -11,7 +13,7 @@ export const converter = new showdown.Converter({
     ghMentionsLink: 'https://github.com/{u}'
 })
 
-
+// helper function to properly encode query string for fetch
 export const encodeQueryString = (params) => {
     const keys = Object.keys(params)
     return keys.length ?
@@ -22,7 +24,7 @@ export const encodeQueryString = (params) => {
         ""
 }
 
-
+// helper function to parse Link headers in to an object for use with pagniation
 export const parseLinkHeader = (header) => {
     if (header.length === 0) {
         throw new Error("input must not be of zero length");

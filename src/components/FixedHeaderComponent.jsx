@@ -91,9 +91,6 @@ class FixedHeaderComponent extends React.Component {
     }
     handleRepo(e) {
         e.preventDefault();
-        console.log(e.target)
-        console.log(this.user.value + " - " + this.repo.value)
-
         this.getAvatar(true, this.user.value, this.repo.value)
         this.props.onRepoChange(this.user.value, this.repo.value);
 
