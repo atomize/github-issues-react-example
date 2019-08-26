@@ -1,11 +1,13 @@
 import React from 'react';
 
+// Function to pad zeros on to inverted color return
 const  padZero = (str, len) => {
     len = len || 2;
     var zeros = new Array(len).join('0');
     return (zeros + str).slice(-len);
 }
 
+// Function to invert the color of the label text to make it more readable
 const invertColor = (hex, bw) => {
     if (hex.indexOf('#') === 0) { hex = hex.slice(1) }
     if (hex.length === 3) { hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2] }
@@ -23,6 +25,7 @@ const invertColor = (hex, bw) => {
 
 }
 
+// renders the labels and their text from the labels property of the API response object
 const Labels = ({ labels }) => {
     let labelMap = labels.map((label, index) => {
         return <span key={index} style={{ backgroundColor: "#" + label.color, color: invertColor("#" + label.color, true) }} className={"tag " + (labels.length === 0 ? "is-hidden" : "")}>{label.name}</span>

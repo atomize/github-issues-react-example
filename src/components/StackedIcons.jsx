@@ -7,6 +7,7 @@ import {
     faCircle
 } from '@fortawesome/free-solid-svg-icons'
 
+// exclamation circle with added check option for issue icon
 const IssueIconStack = ({ state }) => {
     return (
         <span className="fa-layers fa-fw fa-2x">
@@ -29,6 +30,7 @@ const IssueIconStack = ({ state }) => {
     )
 }
 
+// code branch and check icon stack for PR icon
 const PrIconStack = ({ state }) => {
     return (
         <span className="fa-layers fa-fw fa-2x">
@@ -50,6 +52,7 @@ const PrIconStack = ({ state }) => {
     )
 }
 
+// renders the appropriate stacked icon for each issue/pr and applies color accordnig to open/closed state 
 const StackedIcons = ({ type, state }) => {
     const iconColor = (state === "closed" ? "red" : "green")
     let jsx = type ? <IssueIconStack state={iconColor} type={type} />

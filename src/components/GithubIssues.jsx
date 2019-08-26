@@ -17,31 +17,28 @@ function incrementPage(page) {
     return (previousState) => {
         return { ...previousState, page: page, currentPageNumber: +page.split('=').pop(), loading: true };
     };
-}
+};
 
 function changeFilter(filterObj) {
     return (previousState) => {
         let stateTest = previousState.listFilter.state !== filterObj.state ? true : false
         return { ...previousState, listFilter: filterObj, loading: stateTest };
     };
-}
+};
+
 function changeRepo(user, repo) {
     return (previousState) => {
 
         return { ...previousState, user: user, repo: repo, loading: true };
     };
-}
-const headers = {
-    headers: {
-        Authorization: "token 60e07ff280c786e523a632be9af8f992270a5c5b",
-        Accept: "application/vnd.github.v3+json,application/vnd.github.machine-man-preview+json",
-    }
 };
 
-const baseUrl = "https://api.github.com/repos"
-
-
-
+/**
+ *
+ *
+ * @class GithubIssues
+ * @extends {React.Component}
+ */
 class GithubIssues extends React.Component {
 
     constructor(props) {
@@ -61,6 +58,7 @@ class GithubIssues extends React.Component {
             error: null,
             showBody: {},
         };
+        
         // fix the this value
         this.getIssues = this.getIssues.bind(this);
         this.handleRepoChange = this.handleRepoChange.bind(this);
@@ -68,6 +66,8 @@ class GithubIssues extends React.Component {
         this.handleFilterChange = this.handleFilterChange.bind(this);
 
     }
+
+    // set state with props here, because we might change the user/repo later
     componentWillMount() {
         this.setState({
             user: this.props.user,
@@ -91,7 +91,6 @@ class GithubIssues extends React.Component {
                 });
             });
         }
-        // Get the avatar for the user/org and put it in the header
 
         // Get the issues and populate the panel
         this.getIssues();
@@ -113,16 +112,31 @@ class GithubIssues extends React.Component {
      * Fetch issues for repository
      */
     getIssues() {
+        // Use auth token with Github API in order to have a higher rate limit for this example - not recommended for client-side use in production
+        const headers = {
+            headers: {
+                Authorization: "token 60e07ff280c786e523a632be9af8f992270a5c5b",
+                Accept: "application/vnd.github.v3+json,application/vnd.github.machine-man-preview+json",
+            }
+        };
+
+        const baseUrl = "https://api.github.com/repos"
+
         // 7 days ago from today in ISO - to be used for GH API parameter
         const since = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
+
         // GET parameters to send to GH Issues API 
         // `this.state.listFilter.state` - this is ~confusing because GH refers to 
         // 'open, closed' as 'state' of an issue/PR
+        // I am calling open/close/all 'state' and issue/pr/all 'choice'
         const params = appHelpers.encodeQueryString({ state: this.state.listFilter.state, since: since, per_page: 40, sort: "created" })
+
         // Need an empty string to store Link headers from GET response since we need to reference it within promise chain - used for pagination
         let linkHeaders = ''
+
         // Build the URL from props/state(for the page) - [note: when state.page changes, we update]
         let userRepoIssues = `${this.state.user}/${this.state.repo}/issues`
+
         let fullUrl = `${baseUrl}/${userRepoIssues}${params}${this.state.page}`
 
         fetch(fullUrl, headers)
@@ -167,8 +181,6 @@ class GithubIssues extends React.Component {
     }
 
     /**
-     * 
-     * @param {String} page
      * expects a URL parameter like the end of pagination url - i.e '&page=2'
      */
     handlePageChange(page) {
@@ -186,17 +198,20 @@ class GithubIssues extends React.Component {
 
 
     }
+    // Handles interaction with the repository switcher in the header element
     handleRepoChange(user, repo) {
         this.setState(changeRepo(user, repo), () => {
             this.getIssues()
         })
     }
+
     // Renders the panel blocks that contain the issue information
     renderIssues() {
         if (this.state.error) {
             return this.renderError();
         }
 
+        // set state to show or hide issue/pr body for a particular panel-block
         const isVisible = (id) => {
             return this.state.showBody["_" + id] ? " container bodyContainer" : " is-hidden"
         }
@@ -208,6 +223,7 @@ class GithubIssues extends React.Component {
             const id = e.currentTarget.dataset.id;
             obj["_" + id] = this.state.showBody["_" + id] === true ? false : true
             this.setState({ showBody: obj })
+            // if the showBody state matches the ID of a panel, get the body contents from the cached response data and render it with Showdown
             if (obj["_" + id]) {
                 this.state.issues.map(function (issues) {
                     if (issues.id === +id) {
@@ -222,11 +238,13 @@ class GithubIssues extends React.Component {
          * 
          * @param Boolean issueOrPr
          * expects true or false based on the presence of 'pull_request' property from issues repsonse object
+         * shows or hides issues/pr
          */
         const hideMe = (issueOrPr) => {
             let choiceType = issueOrPr ? "issues" : "pull requests"
             return (this.state.listFilter.choice !== (choiceType || "all") ? " " : " is-hidden")
         }
+
         return (
             < React.Fragment >
                 {

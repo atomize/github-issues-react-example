@@ -1,5 +1,6 @@
 import React from 'react';
 
+// Function to get text string corresponding to given date - i.e. '7 days ago'
 const getTimeAgoString = (timestamp) => {
     const SECOND = 1000
     const MINUTE = SECOND * 60
@@ -33,6 +34,7 @@ const getTimeAgoString = (timestamp) => {
     return getElapsedString(YEAR, 'year');
 }
 
+// renders the '#999 7 days ago by user -- Assigned to user1 user2' string for each issue
 const TimeAgoComponent = ({ data }) => {
     const createdAt = getTimeAgoString(new Date(data.created_at))
     const updatedAt = getTimeAgoString(new Date(data.updated_at))

@@ -1,6 +1,9 @@
 import React from 'react';
 
 import {Swipeable} from 'react-swipeable'
+
+// small swipable wrapper around the pagination component for a little mobile sugar
+
 class SwipeComponent extends React.Component {
     render() {
         return (
@@ -14,6 +17,7 @@ class SwipeComponent extends React.Component {
     }
 }
 
+// Pagination component to navigate API reponse in full
 class PaginationComponent extends React.Component {
     constructor(props) {
         super(props);
@@ -42,7 +46,9 @@ class PaginationComponent extends React.Component {
       
         const pages = this.props.pages;
         const currentPageNumber = this.props.currentPageNumber
+        // determines the last page(total pages) from the parsed Link headers - if there is only one page, it returns 1
         const lastpage = pages.last ? pages.last.split("=").pop() : pages.prev ? +pages.prev.split("=").pop() + 1 : 1
+        // make an array with the page number strings (i.e &page=1) to map
         const pageButtons = Array.apply(null, { length: lastpage })
             .map(Number.call, Number)
             .map(x => `&page=${x + 1}`)
