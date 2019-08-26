@@ -7,7 +7,6 @@ const titleCase = (inStr) => {
 }
 function doModal(show) {
     return (previousState) => {
-
         return { ...previousState, modal: show };
     };
 }
@@ -116,22 +115,19 @@ class FixedHeaderComponent extends React.Component {
             <div class="modal-background" ></div>
             <div class="modal-content">
                 <form  >
-
                     <div class="field">
-                        <label class="label is-small">Small input</label>
-                        <div class="control has-icons-left has-icons-right">
-                            <input class="input is-small" type="text" placeholder="angular" ref={(c) => this.user = c} name="user" />
-                            <input class="input is-small" type="text" placeholder="angular" ref={(c) => this.repo = c} name="repo" />
-                            <span class="icon is-small is-left">
-                                <i class="fas fa-envelope"></i>
-                            </span>
-                            <span class="icon is-small is-right">
-                                <i class="fas fa-check"></i>
-                            </span>
+                        <label class="label is-large has-text-white">Github User</label>
+                        <div class="control">
+                            <input class="input is-large" type="text" placeholder="facebook" ref={(c) => this.user = c} name="user" />
                         </div>
                     </div>
-                    <button type="button" onClick={this.handleRepo} >Save</button>
-
+                    <div class="field">
+                        <label class="label is-large has-text-white">Repository Name</label>
+                        <div class="control">
+                            <input class="input is-large" type="text" placeholder="react" ref={(c) => this.repo = c} name="repo" />
+                        </div>
+                    </div>
+                    <button class="button is-link is-large is-fullwidth" onClick={this.handleRepo}>Enter</button>
                 </form>
             </div>
             <button class="modal-close is-large" aria-label="close" onClick={this.showModal}></button>
@@ -155,8 +151,7 @@ class FixedHeaderComponent extends React.Component {
 
 
                     <span className="navbar-item" >
-                        <span className="img-label-container " onClick={this.showModal}>
-
+                        <span className="img-label-container is-unselectable" onClick={this.showModal}>
                             <img src={this.state.avatar} alt={`${this.props.user}/${this.props.repo}`} width="28px" height="28px" />
                             <p>{this.props.repo}</p>
                         </span>
@@ -183,7 +178,6 @@ class FixedHeaderComponent extends React.Component {
                                     listFilter={this.props.listFilter}
                                 />
                             </span>
-
                             <span className="navbar-item">
                                 <NavbarButtonGroup
                                     buttonArray={["open", "closed", "all"]}
