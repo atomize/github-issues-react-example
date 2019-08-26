@@ -25,7 +25,12 @@ function changeFilter(filterObj) {
         return { ...previousState, listFilter: filterObj, loading: stateTest };
     };
 }
-
+function changeRepo(user,repo) {
+    return (previousState) => {
+       
+        return { ...previousState, user: user,repo: repo, loading: true };
+    };
+}
 const headers = {
     headers: {
         Authorization: "token 60e07ff280c786e523a632be9af8f992270a5c5b",
@@ -42,8 +47,8 @@ class GithubIssues extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: this.props.user,
-            repo: this.props.repo,
+            user: 'angular',
+            repo: 'angular',
             listFilter: { state: "open", choice: "issues" },
             since: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
             per_page: 40,
@@ -58,7 +63,7 @@ class GithubIssues extends React.Component {
         };
         // fix the this value
         this.getIssues = this.getIssues.bind(this);
-       
+        this.handleRepoChange = this.handleRepoChange.bind(this);
         this.handlePageChange = this.handlePageChange.bind(this);
         this.handleFilterChange = this.handleFilterChange.bind(this);
 
@@ -86,13 +91,7 @@ class GithubIssues extends React.Component {
         this.getIssues();
     }
 
-    /**
-     * 
-     * @param {} previousState 
-     * @param {} nextState 
-     * 
-     * shouldComponentUpdate() enforces re-rendering to only  when state.page or state.listFilter is changed
-     */
+
     shouldComponentUpdate(previousState, nextState) {
         if (previousState.page !== nextState.page) {
             return true;
@@ -117,7 +116,7 @@ class GithubIssues extends React.Component {
         // Need an empty string to store Link headers from GET response since we need to reference it within promise chain - used for pagination
         let linkHeaders = ''
         // Build the URL from props/state(for the page) - [note: when state.page changes, we update]
-        let userRepoIssues = `${this.props.user}/${this.props.repo}/issues`
+        let userRepoIssues = `${this.state.user}/${this.state.repo}/issues`
         let fullUrl = `${baseUrl}/${userRepoIssues}${params}${this.state.page}`
 
         fetch(fullUrl, headers)
@@ -181,7 +180,11 @@ class GithubIssues extends React.Component {
 
 
     }
-
+handleRepoChange(user, repo) {
+        this.setState(changeRepo(user,repo), () => {
+            this.getIssues()
+        })
+    }
     // Renders the panel blocks that contain the issue information
     renderIssues() {
         if (this.state.error) {
@@ -266,7 +269,7 @@ class GithubIssues extends React.Component {
 
             <div className="container">
                 <nav className="panel">
-                    <FixedHeaderComponent listFilter={this.state.listFilter} onFilterChange={this.handleFilterChange} user={this.props.user} repo={this.props.repo} since={this.state.since} />
+                    <FixedHeaderComponent listFilter={this.state.listFilter} onFilterChange={this.handleFilterChange} onRepoChange={this.handleRepoChange} user={this.state.user} repo={this.state.repo} since={this.state.since} />
                     {this.state.loading ?
                         this.renderLoading()
                         : this.renderIssues()}

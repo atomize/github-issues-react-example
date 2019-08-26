@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faComment,
 } from '@fortawesome/free-solid-svg-icons'
+
 const Comments = ({ data }) => {
     let jsx = <span className={data.comments < 1 ? "is-hidden" : "fa-layers  fa-lg comments"}  >
         <FontAwesomeIcon icon={faComment} transform="down-2 left-2">1</FontAwesomeIcon>
