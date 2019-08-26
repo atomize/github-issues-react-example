@@ -58,7 +58,7 @@ class GithubIssues extends React.Component {
             error: null,
             showBody: {},
         };
-        
+
         // fix the this value
         this.getIssues = this.getIssues.bind(this);
         this.handleRepoChange = this.handleRepoChange.bind(this);
@@ -123,6 +123,7 @@ class GithubIssues extends React.Component {
         const baseUrl = "https://api.github.com/repos"
 
         // 7 days ago from today in ISO - to be used for GH API parameter
+        // included as a state variable because I will add a datepicker in the future for custom time frame
         const since = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
 
         // GET parameters to send to GH Issues API 
@@ -180,9 +181,8 @@ class GithubIssues extends React.Component {
         );
     }
 
-    /**
-     * expects a URL parameter like the end of pagination url - i.e '&page=2'
-     */
+    
+     // expects a URL parameter like the end of pagination url - i.e '&page=2'
     handlePageChange(page) {
         this.setState(incrementPage(page), () => {
             this.getIssues()
@@ -235,8 +235,6 @@ class GithubIssues extends React.Component {
 
         }
         /**
-         * 
-         * @param Boolean issueOrPr
          * expects true or false based on the presence of 'pull_request' property from issues repsonse object
          * shows or hides issues/pr
          */
