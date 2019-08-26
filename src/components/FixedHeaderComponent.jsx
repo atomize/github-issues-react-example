@@ -111,26 +111,26 @@ class FixedHeaderComponent extends React.Component {
     }
     renderModal() {
 
-        return <div class={"modal " + (this.state.modal === true ? "is-active" : "")}>
-            <div class="modal-background" ></div>
-            <div class="modal-content">
+        return <div className={"modal " + (this.state.modal === true ? "is-active" : "")}>
+            <div className="modal-background" ></div>
+            <div className="modal-content">
                 <form  >
-                    <div class="field">
-                        <label class="label is-large has-text-white">Github User</label>
-                        <div class="control">
-                            <input class="input is-large" type="text" placeholder="facebook" ref={(c) => this.user = c} name="user" />
+                    <div className="field">
+                        <label className="label is-large has-text-white">Github User</label>
+                        <div className="control">
+                            <input className="input is-large" type="text" placeholder="facebook" ref={(c) => this.user = c} name="user" />
                         </div>
                     </div>
-                    <div class="field">
-                        <label class="label is-large has-text-white">Repository Name</label>
-                        <div class="control">
-                            <input class="input is-large" type="text" placeholder="react" ref={(c) => this.repo = c} name="repo" />
+                    <div className="field">
+                        <label className="label is-large has-text-white">Repository Name</label>
+                        <div className="control">
+                            <input className="input is-large" type="text" placeholder="react" ref={(c) => this.repo = c} name="repo" />
                         </div>
                     </div>
-                    <button class="button is-link is-large is-fullwidth" onClick={this.handleRepo}>Enter</button>
+                    <button className="button is-link is-large is-fullwidth" onClick={this.handleRepo}>Enter</button>
                 </form>
             </div>
-            <button class="modal-close is-large" aria-label="close" onClick={this.showModal}></button>
+            <button className="modal-close is-large" aria-label="close" onClick={this.showModal}></button>
         </div>
 
     }

@@ -25,10 +25,10 @@ function changeFilter(filterObj) {
         return { ...previousState, listFilter: filterObj, loading: stateTest };
     };
 }
-function changeRepo(user,repo) {
+function changeRepo(user, repo) {
     return (previousState) => {
-       
-        return { ...previousState, user: user,repo: repo, loading: true };
+
+        return { ...previousState, user: user, repo: repo, loading: true };
     };
 }
 const headers = {
@@ -68,13 +68,13 @@ class GithubIssues extends React.Component {
         this.handleFilterChange = this.handleFilterChange.bind(this);
 
     }
-componentWillMount() {
-  this.setState({
-    user: this.props.user,
-    repo: this.props.repo,
-    // ...
-  });
-}
+    componentWillMount() {
+        this.setState({
+            user: this.props.user,
+            repo: this.props.repo,
+            // ...
+        });
+    }
     componentDidMount() {
         /**
          * From Bulma Docs to activate responsive menu burger
@@ -92,7 +92,7 @@ componentWillMount() {
             });
         }
         // Get the avatar for the user/org and put it in the header
-      
+
         // Get the issues and populate the panel
         this.getIssues();
     }
@@ -108,7 +108,7 @@ componentWillMount() {
         return false;
     }
 
-  
+
     /**
      * Fetch issues for repository
      */
@@ -186,8 +186,8 @@ componentWillMount() {
 
 
     }
-handleRepoChange(user, repo) {
-        this.setState(changeRepo(user,repo), () => {
+    handleRepoChange(user, repo) {
+        this.setState(changeRepo(user, repo), () => {
             this.getIssues()
         })
     }
@@ -209,14 +209,14 @@ handleRepoChange(user, repo) {
             obj["_" + id] = this.state.showBody["_" + id] === true ? false : true
             this.setState({ showBody: obj })
             if (obj["_" + id]) {
-               this.state.issues.map(function(issues) {
+                this.state.issues.map(function (issues) {
                     if (issues.id === +id) {
                         return document.querySelector(`._${id}`).innerHTML = appHelpers.converter.makeHtml(issues.body)
                     }
                     return true
                 })
             }
-          
+
         }
         /**
          * 
