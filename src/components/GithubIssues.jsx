@@ -47,8 +47,8 @@ class GithubIssues extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: 'angular',
-            repo: 'angular',
+            user: 'facebook',
+            repo: 'react',
             listFilter: { state: "open", choice: "issues" },
             since: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
             per_page: 40,
