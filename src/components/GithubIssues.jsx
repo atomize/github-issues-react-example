@@ -47,8 +47,8 @@ class GithubIssues extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: 'angular',
-            repo: 'angular',
+            user: '',
+            repo: '',
             listFilter: { state: "open", choice: "issues" },
             since: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
             per_page: 40,
@@ -68,7 +68,13 @@ class GithubIssues extends React.Component {
         this.handleFilterChange = this.handleFilterChange.bind(this);
 
     }
-
+componentWillMount() {
+  this.setState({
+    user: this.props.user,
+    repo: this.props.repo,
+    // ...
+  });
+}
     componentDidMount() {
         /**
          * From Bulma Docs to activate responsive menu burger

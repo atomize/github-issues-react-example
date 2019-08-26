@@ -1,5 +1,7 @@
 
-Check out a running example https://atomize.github.io/github-issues-react-example/ that shows the issues from facebook/react
+Check out a running example https://atomize.github.io/github-issues-react-example/ that shows the issues from facebook/react =)
+
+## To change user/repository, click on the icon in the nav bar
 
 
 An example application that retrieves the issues from a particular Github repository and displays them. Includes pagination and some light filtering functionality. Clicking on an issues reveals the body of the issues with the Gihub markdown parsed to display as HTML in the preview box. This repo is structured like a standalone React app, but it only consists of one main component, ```<GithubIssues user="" repo="">```. All of the other components are rendered as children to GithubIssues. Changing the 'user' and 'repo' props of the GithubIssues component will render the issues for that user/repository accordingly.
